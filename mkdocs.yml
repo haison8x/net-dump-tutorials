@@ -40,6 +40,7 @@ nav:
       - 7. Linux and Docker: 07-linux-docker.md
       - 8. Automation (ClrMD, DumpLinq): 08-automation-clrmd-dumplinq.md
       - 9. Troubleshooting and FAQ: 09-troubleshooting-faq.md
+      - "10. Appendix: WinDbg": 10-appendix-windbg.md
   - Cheat sheet: cheatsheet.md
 
 markdown_extensions:

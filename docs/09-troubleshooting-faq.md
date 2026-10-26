@@ -104,7 +104,8 @@ sensitive data.
 **Full or Heap?** Heap for managed leaks/hangs/crashes. Full when native code may be involved
 or the dump must be analyzed with lldb for native frames.
 
-**Can I analyze a Linux dump on Windows?** Yes - `dotnet-dump analyze` on a Windows host opens the lab dumps fine.
+**Can I analyze a Linux dump on Windows?** Yes - `dotnet-dump analyze` and WinDbg on a Windows host
+both open the lab dumps fine ([Appendix: WinDbg](10-appendix-windbg.md)).
 Microsoft recommends the same OS/distro/architecture when possible; a container from the same base
 image is the easiest way.
 

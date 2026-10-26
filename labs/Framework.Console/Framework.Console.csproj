@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- A .NET Framework 4.8 app for the WinDbg appendix (docs/10-appendix-windbg.md).
+       .NET Framework processes have no diagnostics IPC channel, so `dotnet-dump ps` does not list
+       them; on Windows `dotnet-dump collect -p <pid>` still works, and so does ProcDump.
+       Builds with the regular .NET SDK: the reference assemblies come from NuGet. -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net48</TargetFramework>
+    <RootNamespace>FrameworkLab</RootNamespace>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <!-- Classic Windows PDBs: the most compatible format for the desktop CLR's SOS. -->
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

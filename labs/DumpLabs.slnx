@@ -1,6 +1,7 @@
 <Solution>
   <Project Path="Crash.Console/Crash.Console.csproj" />
   <Project Path="Deadlock.Api/Deadlock.Api.csproj" />
+  <Project Path="Framework.Console/Framework.Console.csproj" />
   <Project Path="LoadGen/LoadGen.csproj" />
   <Project Path="MemoryLeak.Api/MemoryLeak.Api.csproj" />
 </Solution>

@@ -44,6 +44,7 @@ Then follow the chapters in order, starting with [Setup](docs/00-setup.md).
 7. [Linux and Docker](docs/07-linux-docker.md)
 8. [Automation with ClrMD and DumpLinq](docs/08-automation-clrmd-dumplinq.md)
 9. [Troubleshooting and FAQ](docs/09-troubleshooting-faq.md)
+10. [Appendix: WinDbg](docs/10-appendix-windbg.md) (Windows only: native crashes, .NET Framework)
 - [Cheat sheet](docs/cheatsheet.md)
 
 ## Repository layout
@@ -56,7 +57,8 @@ docker/
 labs/
   MemoryLeak.Api/         Lab 1 - four kinds of memory leaks
   Deadlock.Api/           Lab 2 - lock deadlock, async deadlocks, thread pool starvation
-  Crash.Console/          Lab 3 - crashes
+  Crash.Console/          Lab 3 - crashes (+ a native crash for the WinDbg appendix)
+  Framework.Console/      .NET Framework 4.8 app for the WinDbg appendix (Windows only)
   LoadGen/                tiny HTTP load generator
 tools/
   DumpAnalyzer/           ClrMD-based analyzer: heap diff, root paths, hang report

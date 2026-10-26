@@ -8,6 +8,10 @@
 | 2 | `async-void` | exception escaping an `async void` method |
 | 3 | `stackoverflow` | infinite recursion - cannot be caught |
 
+A fourth scenario, `native` (an access violation inside native code via P/Invoke), is covered in
+the [WinDbg appendix](10-appendix-windbg.md#2-a-native-crash-what-dotnet-dump-cannot-see), because
+its interesting frames are native ones.
+
 A crashed process cannot be asked for a dump. The runtime must be told **in advance** to write one
 when it dies - with the environment variables from [Chapter 2](02-collecting-dumps.md#on-crash-environment-variables).
 The lab image sets them already:
