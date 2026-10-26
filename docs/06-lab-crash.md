@@ -1,6 +1,6 @@
 # 6. Lab 3 - Crashes
 
-**App:** [`labs/Crash.Console`](https://github.com/haison8x/net-dump-tutorials/blob/main/labs/Crash.Console/Program.cs) - a console app that crashes in three ways.
+**App:** [`labs/Crash.Console`](https://github.com/haison8x/net-dump-tutorials/tree/main/labs/Crash.Console) - a console app that crashes in three ways.
 
 | Scenario | Command | Crash |
 |---|---|---|
@@ -29,8 +29,8 @@ docker compose run --rm crash unhandled
 ```text
 Crash.Console PID 1 - scenario 'unhandled'
 Unhandled exception. System.InvalidOperationException: Invalid quantity -1 for order 1002 in orders-2026-10.csv
-   at CrashLab.OrderImporter.ImportLine(String fileName, String line) in /src/labs/Crash.Console/Program.cs:line 64
-   at CrashLab.OrderImporter.ImportBatch(String fileName) in /src/labs/Crash.Console/Program.cs:line 54
+   at CrashLab.OrderImporter.ImportLine(String fileName, String line) in /src/labs/Crash.Console/OrderImporter.cs:line 19
+   at CrashLab.OrderImporter.ImportBatch(String fileName) in /src/labs/Crash.Console/OrderImporter.cs:line 9
    at Program.<>c.<<Main>$>b__0_0() in /src/labs/Crash.Console/Program.cs:line 18
    at System.Threading.Thread.StartCallback()
 [createdump] Gathering state for process 1 dotnet
@@ -140,8 +140,8 @@ Current symbol store settings:
 OS Thread Id: 0xe (8)
         Child SP               IP Call Site
 0000788214724D00 000078821a228913 [SoftwareExceptionFrame: 0000788214724d00]
-0000788214725B00 000078819B9C2C2B CrashLab.OrderImporter.ImportLine(System.String, System.String) [/src/labs/Crash.Console/Program.cs @ 64]
-0000788214725B80 000078819B9C2A53 CrashLab.OrderImporter.ImportBatch(System.String) [/src/labs/Crash.Console/Program.cs @ 54]
+0000788214725B00 000078819B9C2C2B CrashLab.OrderImporter.ImportLine(System.String, System.String) [/src/labs/Crash.Console/OrderImporter.cs @ 19]
+0000788214725B80 000078819B9C2A53 CrashLab.OrderImporter.ImportBatch(System.String) [/src/labs/Crash.Console/OrderImporter.cs @ 9]
 0000788214725BF0 000078819B9C2925 Program+<>c.<<Main>$>b__0_0() [/src/labs/Crash.Console/Program.cs @ 18]
 0000788214725C10 000078819ABD9736 System.Threading.Thread.StartCallback()
 0000788214725DB0 0000788219f4bb9c [DebuggerU2MCatchHandlerFrame: 0000788214725db0]
@@ -174,7 +174,7 @@ docker compose run --rm crash async-void
 ```
 ```text
 Unhandled exception. System.TimeoutException: SMTP server did not respond while emailing customer 42
-   at CrashLab.NotificationSender.SendWelcomeEmail(Int32 customerId) in /src/labs/Crash.Console/Program.cs:line 77
+   at CrashLab.NotificationSender.SendWelcomeEmail(Int32 customerId) in /src/labs/Crash.Console/NotificationSender.cs:line 10
    at System.Threading.Tasks.Task.<>c.<ThrowAsync>b__124_1(Object state)
    at System.Threading.ThreadPoolWorkQueue.Dispatch()
    at System.Threading.PortableThreadPool.WorkerThread.WorkerThreadStart()
