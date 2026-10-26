@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{#- Social preview (LinkedIn, Facebook, X, Slack...) for every page of the site. -#}
+{% block extrahead %}
+  {%- if page -%}
+    {%- set title = config.site_name if page.is_homepage else page.title ~ " - " ~ config.site_name -%}
+    {%- set description = (page.meta.description if page.meta else none) or config.site_description -%}
+    {%- set url = page.canonical_url -%}
+  {%- else -%}
+    {%- set title = config.site_name -%}
+    {%- set description = config.site_description -%}
+    {%- set url = config.site_url -%}
+  {%- endif -%}
+  {%- set image = config.site_url ~ "assets/medium.png" -%}
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ config.site_name }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:description" content="{{ description }}">
+  <meta property="og:url" content="{{ url }}">
+  <meta property="og:image" content="{{ image }}">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="900">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title }}">
+  <meta name="twitter:description" content="{{ description }}">
+  <meta name="twitter:image" content="{{ image }}">
+{% endblock %}

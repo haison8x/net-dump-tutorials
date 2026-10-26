@@ -2,6 +2,8 @@
 
 **Trace memory leaks, deadlocks, hangs and crashes in .NET 10 apps using memory dumps - hands-on, 100% in Docker.**
 
+![dumpheap -stat output from Lab 1: 3,991 PriceAlertSubscriber instances, one per request, and gcroot finding 0 roots](assets/medium.png)
+
 A memory dump is a snapshot of a process: every object on the heap, every thread and its stack,
 every lock. When a production app leaks memory, hangs, or crashes, a dump is often the only
 evidence you get - and it is usually enough to find the exact line of code at fault.
