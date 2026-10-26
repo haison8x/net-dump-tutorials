@@ -350,4 +350,4 @@ your log system, so you get a first idea of a crash **without** moving a 170 MB 
    `docker-compose.yml`, rerun `unhandled`, and compare the size. Which commands still work?
 2. Read the crash report of the `async-void` run. Which thread has `"crashed": "true"`?
 
-Next: [WinDbg and Visual Studio](07-windbg-and-visual-studio.md).
+Next: [Linux and Docker](07-linux-docker.md).

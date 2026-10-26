@@ -1,4 +1,4 @@
-# 9. Automation with ClrMD and DumpLinq
+# 8. Automation with ClrMD and DumpLinq
 
 Typing SOS commands is fine for one incident. When you analyze dumps regularly - or want a CI job
 to say *"this crash dump has a deadlock"* - you write code against the dump instead.
@@ -211,4 +211,4 @@ package `DumpLinq.LINQPad` adds `ToDump()` for LINQPad's interactive object view
 - **Hang watchdog**: when health checks fail, collect a dump (e.g. via `dotnet-monitor`) and run
   `hang` on it before restarting the instance - you keep the evidence.
 
-Next: [Troubleshooting and FAQ](10-troubleshooting-faq.md).
+Next: [Troubleshooting and FAQ](09-troubleshooting-faq.md).

@@ -37,7 +37,7 @@ This builds five images:
 | `dumplab/deadlock` | [Lab 2](05-lab-deadlock.md) - `labs/Deadlock.Api`, port **5200** |
 | `dumplab/crash` | [Lab 3](06-lab-crash.md) - `labs/Crash.Console` |
 | `dumplab/loadgen` | `labs/LoadGen` - a tiny HTTP load generator |
-| `dumplab/tools` | the **analysis workstation**: `dotnet-dump`, `dotnet-gcdump`, `dotnet-counters`, `dotnet-trace`, [DumpAnalyzer](09-automation-clrmd-dumplinq.md), the [queries](09-automation-clrmd-dumplinq.md#ad-hoc-queries), and the lab PDBs in `/symbols` |
+| `dumplab/tools` | the **analysis workstation**: `dotnet-dump`, `dotnet-gcdump`, `dotnet-counters`, `dotnet-trace`, [DumpAnalyzer](08-automation-clrmd-dumplinq.md), the [queries](08-automation-clrmd-dumplinq.md#ad-hoc-queries), and the lab PDBs in `/symbols` |
 
 The lab app images also contain `dotnet-dump`, `dotnet-counters`, `dotnet-gcdump` and
 `dotnet-trace`, so you can collect diagnostics from *inside* a running container
@@ -129,7 +129,7 @@ dotnet-dump analyze ./dumps/leak-event-2.dmp
 ```
 
 This works even on Windows for the Linux dumps produced by the labs (verified with
-`dotnet-dump` 10.0.750501). See [Chapter 7](07-windbg-and-visual-studio.md) for WinDbg and Visual Studio.
+`dotnet-dump` 10.0.750501).
 
 ## Cleaning up
 

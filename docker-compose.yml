@@ -23,7 +23,7 @@ services:
     volumes:
       - ./dumps:/dumps
       # The diagnostic IPC socket lives in /tmp. Sharing it lets the `sidecar`
-      # service talk to this app (docs/08-linux-docker-k8s.md).
+      # service talk to this app (docs/07-linux-docker.md).
       - memoryleak-tmp:/tmp
 
   # Lab 2 - deadlocks and hangs (docs/05-lab-deadlock.md)

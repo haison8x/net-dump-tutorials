@@ -1,7 +1,7 @@
-# 8. Linux, Docker and Kubernetes
+# 7. Linux and Docker
 
 The labs already run in containers. This chapter explains *why* the commands look the way they do,
-and how to apply them to your own containers and to Kubernetes.
+and how to apply them to your own containers.
 
 ## How `dotnet-dump` reaches a process
 
@@ -82,8 +82,8 @@ Complete
 
 ## Option 3: shared PID namespace only (`/proc/1/root/tmp`)
 
-Often you cannot add a shared `/tmp` after the fact - for example with `kubectl debug`. If you only
-share the PID namespace, `dotnet-dump` finds nothing:
+Often you cannot add a shared `/tmp` to a container that is already running. If you only share
+the PID namespace, `dotnet-dump` finds nothing:
 
 ```bash
 docker run --rm --pid=container:<app-container> dumplab/tools dotnet-dump collect -p 1 -o /dumps/x.dmp
@@ -123,7 +123,6 @@ image or the orchestrator, and point `DOTNET_DbgMiniDumpName` to a **volume**. N
 | A container with the same .NET version (the labs' `tools`) | `dotnet-dump analyze` | the DAC is found in the local runtime folder - zero setup |
 | Windows/macOS host | `dotnet-dump analyze` | the DAC is downloaded from Microsoft's symbol server |
 | Linux with lldb | `lldb --core <dump> <host>` + SOS | native + managed |
-| Windows | WinDbg, Visual Studio | [Chapter 7](07-windbg-and-visual-studio.md) |
 
 Microsoft recommends analyzing on the *same architecture and Linux distro* as the dump came from
 ([docs](https://learn.microsoft.com/en-us/dotnet/core/diagnostics/debug-linux-dumps)) - a container
@@ -153,56 +152,16 @@ apps, the app's own executable for self-contained ones. lldb needs `libcoreclr.s
 `libmscordaccore.so` and that host from the *same* runtime version - `dotnet-symbol` can download
 them, or `setclrpath <dir>` points SOS to a folder where you copied them.
 
-## Kubernetes
+## Things that bite in production containers
 
-[`k8s/memoryleak.yaml`](https://github.com/haison8x/net-dump-tutorials/blob/main/k8s/memoryleak.yaml)
-deploys Lab 1 ready for dump collection: crash-dump variables, an `emptyDir` volume at `/dumps`,
-`runAsUser: 1654` and `fsGroup` so the app can write there, and a memory limit.
-
-```bash
-docker compose build memoryleak
-kind load docker-image dumplab/memoryleak     # or: minikube image load dumplab/memoryleak
-kubectl apply -f k8s/memoryleak.yaml
-```
-
-!!! info "What was verified"
-    No Kubernetes cluster was available while writing this tutorial. The mechanism below is
-    exactly Option 3, which **was** verified with Docker (PID namespace only + `TMPDIR=/proc/1/root/tmp`
-    + same UID). Treat the `kubectl` commands as a recipe to adapt.
-
-### Collect with an ephemeral debug container
-
-`kubectl debug --target` starts a container in the pod that shares the **PID namespace** of the
-target container - Option 3. [`k8s/debug-profile.yaml`](https://github.com/haison8x/net-dump-tutorials/blob/main/k8s/debug-profile.yaml)
-sets the UID and `TMPDIR`:
-
-```bash
-POD=$(kubectl get pod -l app=memoryleak -o name | head -1)
-kubectl debug -it $POD --image=dumplab/tools --target=memoryleak --custom=k8s/debug-profile.yaml -- sh
-
-# inside the debug container
-dotnet-dump ps
-dotnet-dump collect -p 1 --type Heap -o /dumps/leak.dmp     # written to the APP container's /dumps
-ls -l /proc/1/root/dumps/                                   # visible from here too
-```
-
-Copy it out (from the app container, or from the debug container through `/proc/1/root`):
-
-```bash
-kubectl cp ${POD#pod/}:/dumps/leak.dmp ./dumps/leak.dmp -c memoryleak
-```
-
-(`kubectl cp` needs `tar` in the source container.)
-
-### Things that bite in Kubernetes
-
-- **OOMKilled** - a leaking pod gets killed at its memory limit, and nothing writes a dump for an
-  OOM kill (it is a `SIGKILL`, not a crash). Collect a dump *before* the limit: watch
+- **Killed for memory** - a leaking container gets killed at its memory limit, and nothing writes
+  a dump for that (it is a `SIGKILL`, not a crash). Collect a dump *before* the limit: watch
   `dotnet.gc.last_collection.heap.size`, or use `dotnet-monitor` collection rules.
-- **Dump size vs. disk** - an `emptyDir` counts against the node's ephemeral storage and the pod's
-  `sizeLimit`. A Full dump is roughly as large as the process's memory. Prefer `--type Heap`.
-- **Liveness probes** - writing a dump freezes the process for seconds. A tight liveness probe can
-  restart the container in the middle of the dump. Relax the probe while you investigate.
-- **Pod deletion** - `emptyDir` is deleted with the pod. Copy the dump out first, or use a PVC.
+- **Dump size vs. disk** - a Full dump is roughly as large as the process's memory. Make sure the
+  volume has room, and prefer `--type Heap`.
+- **Health checks** - writing a dump freezes the process for seconds. A tight health check can
+  restart the container in the middle of the dump. Relax it while you investigate.
+- **Ephemeral storage** - a dump written to the container's own filesystem disappears with the
+  container. Always write to a volume and copy the dump out before removing the container.
 
-Next: [Automation with ClrMD and DumpLinq](09-automation-clrmd-dumplinq.md).
+Next: [Automation with ClrMD and DumpLinq](08-automation-clrmd-dumplinq.md).

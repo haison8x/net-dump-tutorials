@@ -1,4 +1,4 @@
-# 10. Troubleshooting and FAQ
+# 9. Troubleshooting and FAQ
 
 Every problem below was hit while building and testing this tutorial.
 
@@ -11,7 +11,7 @@ Every problem below was hit while building and testing this tutorial.
        In the .NET images that is UID 1654 (`$APP_UID`).
     2. **Same `/tmp`** - the socket is in the target's `/tmp` (or `$TMPDIR`). From another container
        share `/tmp` with a volume, or set `TMPDIR=/proc/<pid>/root/tmp` when you share the PID
-       namespace ([Chapter 8](08-linux-docker-k8s.md#option-3-shared-pid-namespace-only-proc1roottmp)).
+       namespace ([Chapter 7](07-linux-docker.md#option-3-shared-pid-namespace-only-proc1roottmp)).
     3. **Diagnostics disabled** - `DOTNET_EnableDiagnostics=0` in the target turns the channel off.
 
 ??? question "`[createdump] ... open(/proc/1234/mem) FAILED Permission denied (13)`"
@@ -82,7 +82,7 @@ Every problem below was hit while building and testing this tutorial.
 
 ??? question "DumpLinq returns fewer objects than `dumpheap`"
     DumpLinq 0.1.3 uses ClrMD 3.1, which missed objects in our .NET 10 dumps. Cross-check with
-    ClrMD 4.x ([Chapter 9](09-automation-clrmd-dumplinq.md#dumplinq)).
+    ClrMD 4.x ([Chapter 8](08-automation-clrmd-dumplinq.md#dumplinq)).
 
 ## Docker
 
@@ -101,9 +101,9 @@ contains all its data. It is routine practice, but plan for the pause and handle
 sensitive data.
 
 **Full or Heap?** Heap for managed leaks/hangs/crashes. Full when native code may be involved
-or the dump must be analyzed with WinDbg/lldb for native frames.
+or the dump must be analyzed with lldb for native frames.
 
-**Can I analyze a Linux dump on Windows?** Yes - `dotnet-dump`, WinDbg and Visual Studio can.
+**Can I analyze a Linux dump on Windows?** Yes - `dotnet-dump analyze` on a Windows host opens the lab dumps fine.
 Microsoft recommends the same OS/distro/architecture when possible; a container from the same base
 image is the easiest way.
 

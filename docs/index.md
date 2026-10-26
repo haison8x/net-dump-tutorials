@@ -22,7 +22,7 @@ and the SOS commands - then automate the analysis with ClrMD.
 | Memory leaks | [Lab 1](04-lab-memory-leak.md) | `dumpheap -stat` diff, `gcroot`, `pathto`, static roots, `timerinfo`, LOH analysis |
 | Deadlocks and hangs | [Lab 2](05-lab-deadlock.md) | `syncblk`, `clrstack -a`, `pstacks`, `dumpasync`, `threadpool`, `threadpoolqueue` |
 | Crashes | [Lab 3](06-lab-crash.md) | dump-on-crash, crash reports, `pe`, `clrthreads`, symbols |
-| Automation | [Chapter 9](09-automation-clrmd-dumplinq.md) | ClrMD, DumpLinq, LINQ over the heap |
+| Automation | [Chapter 8](08-automation-clrmd-dumplinq.md) | ClrMD, DumpLinq, LINQ over the heap |
 
 ## Who this is for
 

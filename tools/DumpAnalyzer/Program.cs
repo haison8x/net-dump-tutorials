@@ -2,7 +2,7 @@ using DumpAnalyzer;
 using Microsoft.Diagnostics.Runtime;
 
 // DumpAnalyzer - automates the manual SOS workflows from the labs with ClrMD
-// (Microsoft.Diagnostics.Runtime). See docs/09-automation-clrmd-dumplinq.md.
+// (Microsoft.Diagnostics.Runtime). See docs/08-automation-clrmd-dumplinq.md.
 //
 //   dotnet run --project tools/DumpAnalyzer -- stat  <dump> [top]
 //   dotnet run --project tools/DumpAnalyzer -- diff  <before.dmp> <after.dmp> [top]
@@ -10,7 +10,7 @@ using Microsoft.Diagnostics.Runtime;
 //   dotnet run --project tools/DumpAnalyzer -- hang  <dump>
 //
 // Add `--dac <path-to-mscordaccore>` if ClrMD cannot find the matching DAC by
-// itself (typically a Linux dump - see docs/08-linux-docker-k8s.md).
+// itself (typically a Linux dump - see docs/07-linux-docker.md).
 
 string? dacPath = null;
 var dacIndex = Array.IndexOf(args, "--dac");

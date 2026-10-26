@@ -36,10 +36,9 @@ nav:
       - 5. Lab 2 - Deadlocks and hangs: 05-lab-deadlock.md
       - 6. Lab 3 - Crashes: 06-lab-crash.md
   - Going further:
-      - 7. WinDbg and Visual Studio: 07-windbg-and-visual-studio.md
-      - 8. Linux, Docker and Kubernetes: 08-linux-docker-k8s.md
-      - 9. Automation (ClrMD, DumpLinq): 09-automation-clrmd-dumplinq.md
-      - 10. Troubleshooting and FAQ: 10-troubleshooting-faq.md
+      - 7. Linux and Docker: 07-linux-docker.md
+      - 8. Automation (ClrMD, DumpLinq): 08-automation-clrmd-dumplinq.md
+      - 9. Troubleshooting and FAQ: 09-troubleshooting-faq.md
   - Cheat sheet: cheatsheet.md
 
 markdown_extensions:

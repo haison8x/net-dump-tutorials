@@ -1,7 +1,7 @@
 # 3. SOS essentials
 
 SOS is the debugger extension that understands .NET. `dotnet-dump analyze` is SOS in a small
-standalone REPL; the same commands work in lldb and WinDbg (prefixed with `!` in WinDbg).
+standalone REPL; the same commands also work in [lldb](07-linux-docker.md#lldb-sos).
 
 ## Opening a dump
 

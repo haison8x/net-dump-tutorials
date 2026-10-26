@@ -107,7 +107,7 @@ Reading it:
 - Same count for three types = they belong together. The suspect is `PriceAlertSubscriber`.
 
 !!! tip "Let a tool do the diff"
-    [DumpAnalyzer](09-automation-clrmd-dumplinq.md) compares two dumps for you:
+    [DumpAnalyzer](08-automation-clrmd-dumplinq.md) compares two dumps for you:
     ```bash
     docker compose run --rm tools dumpanalyzer diff /dumps/leak-event-1.dmp /dumps/leak-event-2.dmp 6
     ```
@@ -340,7 +340,7 @@ System.Collections.Concurrent.ConcurrentDictionary<System.Guid, MemoryLeak.Api.S
 ...
 ```
 
-A ClrMD query ([Chapter 9](09-automation-clrmd-dumplinq.md)) summarizes it in one go:
+A ClrMD query ([Chapter 8](08-automation-clrmd-dumplinq.md)) summarizes it in one go:
 
 ```text
 CustomerReport instances: 4,020

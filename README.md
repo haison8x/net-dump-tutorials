@@ -11,7 +11,7 @@ This tutorial teaches .NET developers how to find production problems from a mem
 | find **memory leaks** (static events, unbounded caches, undisposed timers, LOH fragmentation) | [Lab 1](docs/04-lab-memory-leak.md) |
 | find **deadlocks and hangs** (`lock` ordering, `SemaphoreSlim` async deadlocks, thread pool starvation) | [Lab 2](docs/05-lab-deadlock.md) |
 | find the cause of **crashes** (unhandled exceptions, `async void`, `StackOverflow`) | [Lab 3](docs/06-lab-crash.md) |
-| **automate** dump analysis with ClrMD and DumpLinq | [Chapter 9](docs/09-automation-clrmd-dumplinq.md) |
+| **automate** dump analysis with ClrMD and DumpLinq | [Chapter 8](docs/08-automation-clrmd-dumplinq.md) |
 
 Every lab app is deliberately broken. You run it, break it, collect a dump, and find the bug with
 `dotnet-dump`/SOS - the same way you would in production. Every command output in the docs was
@@ -41,10 +41,9 @@ Then follow the chapters in order, starting with [Setup](docs/00-setup.md).
 4. [Lab 1 - Memory leaks](docs/04-lab-memory-leak.md)
 5. [Lab 2 - Deadlocks and hangs](docs/05-lab-deadlock.md)
 6. [Lab 3 - Crashes](docs/06-lab-crash.md)
-7. [WinDbg and Visual Studio (optional)](docs/07-windbg-and-visual-studio.md)
-8. [Linux, Docker and Kubernetes](docs/08-linux-docker-k8s.md)
-9. [Automation with ClrMD and DumpLinq](docs/09-automation-clrmd-dumplinq.md)
-10. [Troubleshooting and FAQ](docs/10-troubleshooting-faq.md)
+7. [Linux and Docker](docs/07-linux-docker.md)
+8. [Automation with ClrMD and DumpLinq](docs/08-automation-clrmd-dumplinq.md)
+9. [Troubleshooting and FAQ](docs/09-troubleshooting-faq.md)
 - [Cheat sheet](docs/cheatsheet.md)
 
 ## Repository layout
@@ -62,7 +61,6 @@ labs/
 tools/
   DumpAnalyzer/           ClrMD-based analyzer: heap diff, root paths, hang report
   queries/                ad-hoc dump queries (ClrMD and DumpLinq), .NET 10 file-based apps
-k8s/                      Kubernetes manifests (Chapter 8)
 scripts/                  collect-dump.ps1 / collect-dump.sh
 docs/                     the tutorial (published with MkDocs to GitHub Pages)
 dumps/                    your dumps land here (git-ignored!)

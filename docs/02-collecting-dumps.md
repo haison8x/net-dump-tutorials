@@ -32,7 +32,7 @@ domain socket in `/tmp`, or a named pipe on Windows). The runtime then launches 
 - `dotnet-dump` must run as the **same user** as the target process (or with `CAP_SYS_PTRACE`);
 - the output path is resolved by the **target** - `/dumps/...` here is the target container's `/dumps`;
 - in containers you need either `docker exec` into the app container, or a sidecar that shares
-  the app's PID namespace and `/tmp` ([Chapter 8](08-linux-docker-k8s.md)).
+  the app's PID namespace and `/tmp` ([Chapter 7](07-linux-docker.md)).
 
 !!! danger "Collecting a dump freezes the process"
     While the dump is written, the process is suspended. In Lab 2 a 600 MB dump froze the API for
@@ -100,8 +100,8 @@ When a lab app crashes, the console shows:
 ```
 
 !!! tip "Make the dump outlive the container"
-    Write crash dumps to a **mounted volume** (`./dumps:/dumps` in the labs, an `emptyDir` or PVC
-    in Kubernetes). A dump written to the container's own filesystem disappears with it.
+    Write crash dumps to a **mounted volume** (`./dumps:/dumps` in the labs). A dump written to the
+    container's own filesystem disappears with it.
 
 ## Lighter alternatives
 
@@ -113,7 +113,7 @@ docker compose run --rm tools dotnet-gcdump report /dumps/leak.gcdump
 ```
 
 A `.gcdump` contains only the types and references of the managed heap - typically a few MB
-instead of hundreds. It can be opened in Visual Studio or PerfView to browse paths to roots.
+instead of hundreds. `dotnet-gcdump report` prints the largest types.
 Caveats: collecting it **triggers a full GC**, and it has no thread stacks, no field values, no
 locks. Use it for quick leak triage, a real dump for root cause.
 
@@ -146,9 +146,8 @@ If you run on Windows outside containers, you can also use:
 
 - **Task Manager** → Details → right-click process → *Create memory dump file* (full dump);
 - **[ProcDump](https://learn.microsoft.com/en-us/sysinternals/downloads/procdump)**: `procdump -ma <pid>`
-  for a full dump, `procdump -ma -e <pid>` to wait for an unhandled exception;
-- **Visual Studio**: *Debug → Save Dump As* while debugging.
+  for a full dump, `procdump -ma -e <pid>` to wait for an unhandled exception.
 
-All of them produce files that `dotnet-dump analyze`, WinDbg and Visual Studio can open.
+Both produce files that `dotnet-dump analyze` can open.
 
 Next: [SOS essentials](03-sos-essentials.md).

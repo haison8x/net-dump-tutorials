@@ -100,7 +100,7 @@ on .NET 10 that you will meet in Lab 1.
 
 ```mermaid
 flowchart LR
-    Dump[(dump file)] --> Tool[dotnet-dump / lldb / WinDbg]
+    Dump[(dump file)] --> Tool[dotnet-dump / lldb]
     Tool --> SOS[SOS extension<br/>commands like clrstack, gcroot]
     SOS --> DAC[DAC: libmscordaccore.so / mscordaccore.dll<br/>MUST match the runtime version]
     SOS --> PDB[Symbols: *.pdb<br/>for file names and line numbers]

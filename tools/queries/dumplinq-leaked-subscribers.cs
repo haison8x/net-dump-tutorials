@@ -6,7 +6,7 @@
 // CAVEAT: DumpLinq 0.1.3 is built on ClrMD 3.1, which does not see every object
 // in some .NET 10 dumps (we measured 24,044 vs 27,450 objects on a Linux dump).
 // Cross-check important numbers with the ClrMD 4.x queries (clrmd-*.cs) or
-// with `dumpheap -stat`. See docs/09-automation-clrmd-dumplinq.md.
+// with `dumpheap -stat`. See docs/08-automation-clrmd-dumplinq.md.
 //
 //   docker compose run --rm tools dotnet run /queries/dumplinq-leaked-subscribers.cs -- /dumps/leak-event-2.dmp
 
