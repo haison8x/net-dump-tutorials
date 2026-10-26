@@ -55,11 +55,15 @@ To read heap output you need a mental model of the .NET GC heap:
 ```mermaid
 flowchart LR
     subgraph SOH[Small Object Heap]
+        direction LR
         G0[gen0<br/>new objects] --> G1[gen1] --> G2[gen2<br/>long-lived]
     end
-    LOH[Large Object Heap<br/>objects >= 85,000 bytes]
-    POH[Pinned Object Heap]
-    NonGC[NonGC / frozen heap<br/>string literals, RuntimeType...]
+    subgraph Other[Other heaps]
+        direction TB
+        LOH[Large Object Heap<br/>objects >= 85,000 bytes]
+        POH[Pinned Object Heap]
+        NonGC[NonGC / frozen heap<br/>string literals, RuntimeType...]
+    end
 ```
 
 - **Generations 0/1/2** - new objects start in gen0; survivors get promoted. A leak always ends up

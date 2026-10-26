@@ -36,9 +36,10 @@ Every problem below was hit while building and testing this tutorial.
     run unthrottled against a leaking app: our first, unthrottled lab run grew the heap to 15 GB in
     15 seconds - that's why LoadGen has `-r`.
 
-??? question "No dump was written when my pod was killed"
-    An OOM kill (`OOMKilled`) or `kill -9` is not a crash - the runtime gets no chance to run
-    `createdump`. Collect proactively before the memory limit, e.g. with `dotnet-monitor` rules.
+??? question "No dump was written when my container was killed"
+    Being killed for exceeding a memory limit, or by `kill -9`, is not a crash - the process gets a
+    `SIGKILL` and the runtime has no chance to run `createdump`. Collect a dump proactively before
+    the memory limit is reached, e.g. with `dotnet-monitor` collection rules.
 
 ## Analyzing
 

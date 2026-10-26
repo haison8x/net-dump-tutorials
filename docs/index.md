@@ -36,15 +36,8 @@ No prior debugging-tools experience is needed.
    and **[SOS essentials](03-sos-essentials.md)** - the concepts the labs build on.
 3. Do the **labs** in order. Each lab follows the same rhythm:
 
-    ```mermaid
-    flowchart LR
-        A[Run the app] --> B[Reproduce the problem]
-        B --> C[Observe symptoms]
-        C --> D[Collect dump]
-        D --> E[Analyze]
-        E --> F[Root cause]
-        F --> G[Fix & verify]
-    ```
+    **run the app → reproduce the problem → observe symptoms → collect a dump → analyze →
+    find the root cause → fix and verify.**
 
 4. Keep the **[Cheat sheet](cheatsheet.md)** open for your real incidents.
 

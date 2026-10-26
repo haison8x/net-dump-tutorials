@@ -15,12 +15,18 @@ Helper endpoints: `/stats` (memory statistics as JSON) and `/gc` (forces a full,
 ## The method
 
 ```mermaid
-flowchart LR
-    A["1. Confirm the leak<br/>memory after GC keeps growing"] --> B["2. Baseline dump"]
-    B --> C["3. Reproduce,<br/>second dump"]
-    C --> D["4. Diff dumpheap -stat:<br/>WHAT grows?"]
-    D --> E["5. gcroot / pathto:<br/>WHO holds it?"]
-    E --> F["6. Read the code<br/>at the root"]
+flowchart TB
+    subgraph R1[" "]
+        direction LR
+        A["1. Confirm the leak<br/>memory after GC keeps growing"] --> B["2. Baseline dump"] --> C["3. Reproduce,<br/>second dump"]
+    end
+    subgraph R2[" "]
+        direction LR
+        D["4. Diff dumpheap -stat:<br/>WHAT grows?"] --> E["5. gcroot / pathto:<br/>WHO holds it?"] --> F["6. Read the code<br/>at the root"]
+    end
+    R1 --> R2
+    style R1 fill:none,stroke:none
+    style R2 fill:none,stroke:none
 ```
 
 The two questions are always the same: **what** grows, and **who** keeps it alive.
