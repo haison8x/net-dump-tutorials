@@ -1,0 +1,64 @@
+site_name: .NET Dump Analysis Tutorial
+site_description: Trace memory leaks, deadlocks, hangs and crashes in .NET apps using memory dumps - hands-on, in Docker.
+site_url: https://haison8x.github.io/net-dump-tutorials/
+repo_url: https://github.com/haison8x/net-dump-tutorials
+repo_name: haison8x/net-dump-tutorials
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  features:
+    - navigation.sections
+    - navigation.footer
+    - navigation.top
+    - content.code.copy
+    - content.action.edit
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      toggle: { icon: material/weather-night, name: Dark mode }
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      toggle: { icon: material/weather-sunny, name: Light mode }
+
+nav:
+  - Home: index.md
+  - Getting started:
+      - 0. Setup: 00-setup.md
+      - 1. Dump fundamentals: 01-dump-fundamentals.md
+      - 2. Collecting dumps: 02-collecting-dumps.md
+      - 3. SOS essentials: 03-sos-essentials.md
+  - Labs:
+      - 4. Lab 1 - Memory leaks: 04-lab-memory-leak.md
+      - 5. Lab 2 - Deadlocks and hangs: 05-lab-deadlock.md
+      - 6. Lab 3 - Crashes: 06-lab-crash.md
+  - Going further:
+      - 7. WinDbg and Visual Studio: 07-windbg-and-visual-studio.md
+      - 8. Linux, Docker and Kubernetes: 08-linux-docker-k8s.md
+      - 9. Automation (ClrMD, DumpLinq): 09-automation-clrmd-dumplinq.md
+      - 10. Troubleshooting and FAQ: 10-troubleshooting-faq.md
+  - Cheat sheet: cheatsheet.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+validation:
+  links:
+    anchors: warn

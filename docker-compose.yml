@@ -1,0 +1,73 @@
+# .NET dump analysis tutorial - everything runs in Docker.
+#
+#   docker compose up -d --build memoryleak deadlock          # start the lab APIs
+#   docker compose run --rm loadgen -c 10 -r 200 -d 20 http://memoryleak:8080/leak/event
+#   docker compose exec memoryleak dotnet-dump collect -p 1 -o /dumps/leak-event-2.dmp
+#   docker compose run --rm tools dotnet-dump analyze /dumps/leak-event-2.dmp
+#
+# Every dump lands in ./dumps on your machine (mounted at /dumps everywhere).
+
+name: dumplab
+
+x-lab-app: &lab-app
+  volumes:
+    - ./dumps:/dumps
+
+services:
+  # Lab 1 - memory leaks (docs/04-lab-memory-leak.md)
+  memoryleak:
+    <<: *lab-app
+    build: { context: ., dockerfile: docker/app.Dockerfile, args: { APP: MemoryLeak.Api } }
+    image: dumplab/memoryleak
+    ports: ["5100:8080"]
+    volumes:
+      - ./dumps:/dumps
+      # The diagnostic IPC socket lives in /tmp. Sharing it lets the `sidecar`
+      # service talk to this app (docs/08-linux-docker-k8s.md).
+      - memoryleak-tmp:/tmp
+
+  # Lab 2 - deadlocks and hangs (docs/05-lab-deadlock.md)
+  deadlock:
+    <<: *lab-app
+    build: { context: ., dockerfile: docker/app.Dockerfile, args: { APP: Deadlock.Api } }
+    image: dumplab/deadlock
+    ports: ["5200:8080"]
+
+  # Lab 3 - crashes (docs/06-lab-crash.md)
+  #   docker compose run --rm crash unhandled|async-void|stackoverflow
+  crash:
+    <<: *lab-app
+    build: { context: ., dockerfile: docker/app.Dockerfile, args: { APP: Crash.Console } }
+    image: dumplab/crash
+    profiles: ["manual"]
+
+  # HTTP load generator - talks to the APIs over the compose network.
+  #   docker compose run --rm loadgen [-c n] [-d sec] [-r rps] [-t timeout] url...
+  loadgen:
+    build: { context: ., dockerfile: docker/app.Dockerfile, args: { APP: LoadGen } }
+    image: dumplab/loadgen
+    profiles: ["manual"]
+
+  # Analysis workstation: dotnet-dump, dotnet-gcdump, DumpAnalyzer, DumpLinq queries.
+  tools:
+    build: { context: ., dockerfile: docker/tools.Dockerfile }
+    image: dumplab/tools
+    profiles: ["manual"]
+    volumes:
+      - ./dumps:/dumps
+
+  # Sidecar pattern: a tools container that joins the memoryleak container's PID
+  # namespace and shares its /tmp, so the app image would not need any tools.
+  #   docker compose run --rm sidecar dotnet-dump ps
+  sidecar:
+    image: dumplab/tools
+    profiles: ["manual"]
+    pid: "service:memoryleak"
+    user: "1654"            # the app's UID ($APP_UID in the .NET images) - must match
+    depends_on: [memoryleak]
+    volumes:
+      - ./dumps:/dumps
+      - memoryleak-tmp:/tmp
+
+volumes:
+  memoryleak-tmp:

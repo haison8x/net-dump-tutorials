@@ -1,0 +1,8 @@
+# Keep the Docker build context small and avoid host build artifacts leaking in
+**/bin/
+**/obj/
+dumps/
+*.dmp
+.git/
+docs/
+site/
